@@ -2,32 +2,13 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
 import profileData
+import munselldict
 
 def munsell_to_hex(munsell_str):
-    munsell_map = {
-        # Add munsell colors here if needed 
-        '2.5Y 4/4': '#6C5820',
-        '10YR 2/1': '#211C18',
-        '10YR 2/2': '#32251A',
-        '10YR 3/1': '#463D35',
-        '10YR 3/2': '#4A3B2C',
-        '10YR 3/3': '#533E2B',
-        '10YR 3/4': '#62411B',
-        '10YR 3/6': '#73430C',
-        '10YR 4/2': '#695A4B',
-        '10YR 4/3': '#6D563D',
-        '10YR 4/4': '#77572E',
-        '10YR 4/6': '#8A581A',
-        '10YR 5/3': '#8B7761',
-        '10YR 5/4': '#93744B',
-        '10YR 5/6': '#A27129',
-        '7.5YR 2.5/1': '#2B2420',
-        '7.5YR 2.5/2': '#362A22',
-        '7.5YR 3/2': '#4E3827',
-    }
+    
     cleaned = munsell_str.strip().upper().replace('YR', 'YR ')
     cleaned = " ".join(cleaned.split())
-    return munsell_map.get(cleaned, '#000000')  # Default to black if not found
+    return munselldict.munsell_map.get(cleaned, '#000000')  # Default to black if not found
 
 def generate_soil_profile(title, horizons, output_filename):
     fig, ax = plt.subplots(figsize=(10, 9), dpi=300)
