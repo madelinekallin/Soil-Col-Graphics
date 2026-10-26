@@ -1,4 +1,6 @@
 # Edit profile data for desired soil profile diagram
+profile_title = "Auger3"
+
 profile_data = [
     {
         "horizon": "A1",

@@ -72,5 +72,5 @@ def generate_soil_profile(title, horizons, output_filename):
 
 
 # Run generator for each profile
-profile_title = "Auger3"
+profile_title = profileData.profile_title
 generate_soil_profile(profile_title, profileData.profile_data, f"{profile_title}_Profile.png")
