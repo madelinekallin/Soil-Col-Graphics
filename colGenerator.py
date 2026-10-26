@@ -6,6 +6,7 @@ import profileData
 def munsell_to_hex(munsell_str):
     munsell_map = {
         # Add munsell colors here if needed 
+        '2.5Y 4/4': '#6C5820',
         '10YR 2/1': '#211C18',
         '10YR 2/2': '#32251A',
         '10YR 3/1': '#463D35',
@@ -26,24 +27,24 @@ def munsell_to_hex(munsell_str):
     }
     cleaned = munsell_str.strip().upper().replace('YR', 'YR ')
     cleaned = " ".join(cleaned.split())
-    return munsell_map.get(cleaned, '#4A3B2C')
+    return munsell_map.get(cleaned, '#000000')  # Default to black if not found
 
 def generate_soil_profile(title, horizons, output_filename):
     fig, ax = plt.subplots(figsize=(10, 9), dpi=300)
     
-    max_depth = max(h["bottom"] for h in horizons)
+    max_depth = max(h["bottom"] for h in horizons) 
     
     box_left = 1.8
     box_width = 3.5
     box_right = box_left + box_width
     
     ax.set_xlim(0, 11.0)
-    ax.set_ylim(max_depth + 10, -15)
+    ax.set_ylim(max_depth + 10, -15) 
     ax.axis('off')
     
     # Title
     ax.text(box_left + box_width/2, -8, title, 
-            fontsize=22, fontweight='bold', family='serif', ha='center', va='center')
+            fontsize=22, fontweight='bold', ha='center', va='center')
     
     drawn_depths = set()
     
@@ -71,7 +72,7 @@ def generate_soil_profile(title, horizons, output_filename):
         # Depth labels on left
         for depth in (top, bottom):
             if depth not in drawn_depths:
-                depth_str = "150+ CM" if depth == 180 and h["name"] == "C" else f"{depth} CM"
+                depth_str = f"{depth} CM"
                 ax.text(box_left - 0.3, depth, depth_str,
                         fontsize=9.5, fontweight='bold', ha='right', va='center')
                 drawn_depths.add(depth)
@@ -90,4 +91,5 @@ def generate_soil_profile(title, horizons, output_filename):
 
 
 # Run generator for each profile
-generate_soil_profile("Floodplains", profileData.profile_data, "Floodplains_Soil_Profile.png")
+profile_title = "Auger3"
+generate_soil_profile(profile_title, profileData.profile_data, f"{profile_title}_Profile.png")
